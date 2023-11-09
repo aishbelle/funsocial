@@ -59,21 +59,21 @@ function App() {
       ),
       children: [
         {
-          path: "/",
+          index: true,
           element: <Home />,
         },
         {
-          path: "/profile/:id",
+          path: "profile/:id",
           element: <Profile />,
         },
       ],
     },
     {
-      path: "/login",
+      path: "login",
       element: <Login />,
     },
     {
-      path: "/register",
+      path: "register",
       element: <Register />,
     },
   ]);

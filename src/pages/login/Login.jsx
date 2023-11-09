@@ -23,7 +23,17 @@ const Login = () => {
       await login(inputs);
       navigate("/")
     } catch (err) {
-      setErr(err.response.data);
+      if (err.response) {
+        // Request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        setErr(err.response.data);
+      } else if (err.request) {
+        // The request was made but no response was received
+        setErr("No response received from the server. Please try again later.");
+      } else {
+        // Something happened in setting up the request that triggered an error
+        setErr("An error occurred. Please try again later.");
+      }
     }
   };
 
