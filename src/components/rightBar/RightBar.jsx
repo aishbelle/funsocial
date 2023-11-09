@@ -12,7 +12,7 @@ const RightBar = () => {
                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
                 alt=""
               />
-              <span>Jane Doe</span>
+              <span>Anni Kumari</span>
             </div>
             <div className="buttons">
               <button>follow</button>
@@ -25,7 +25,7 @@ const RightBar = () => {
                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
                 alt=""
               />
-              <span>Jane Doe</span>
+              <span>Ananya Bansal</span>
             </div>
             <div className="buttons">
               <button>follow</button>
@@ -42,7 +42,7 @@ const RightBar = () => {
                 alt=""
               />
               <p>
-                <span>Jane Doe</span> changed their cover picture
+                <span>Navya Bansal</span> changed their cover picture
               </p>
             </div>
             <span>1 min ago</span>
@@ -54,7 +54,7 @@ const RightBar = () => {
                 alt=""
               />
               <p>
-                <span>Jane Doe</span> changed their cover picture
+                <span>Priya Sankar</span> changed their cover picture
               </p>
             </div>
             <span>1 min ago</span>
@@ -66,7 +66,7 @@ const RightBar = () => {
                 alt=""
               />
               <p>
-                <span>Jane Doe</span> changed their cover picture
+                <span>Kritika Gupta</span> changed their cover picture
               </p>
             </div>
             <span>1 min ago</span>
@@ -78,7 +78,7 @@ const RightBar = () => {
                 alt=""
               />
               <p>
-                <span>Jane Doe</span> changed their cover picture
+                <span>Manan Vyas</span> changed their cover picture
               </p>
             </div>
             <span>1 min ago</span>
@@ -93,7 +93,7 @@ const RightBar = () => {
                 alt=""
               />
               <div className="online" />
-              <span>Jane Doe</span>
+              <span>Saransh Jain</span>
             </div>
           </div>
           <div className="user">
@@ -113,7 +113,7 @@ const RightBar = () => {
                 alt=""
               />
               <div className="online" />
-              <span>Jane Doe</span>
+              <span>Jayesh Thakur</span>
             </div>
           </div>
           <div className="user">
@@ -123,7 +123,7 @@ const RightBar = () => {
                 alt=""
               />
               <div className="online" />
-              <span>Jane Doe</span>
+              <span>Aniket Jain</span>
             </div>
           </div>
           <div className="user">
@@ -133,7 +133,7 @@ const RightBar = () => {
                 alt=""
               />
               <div className="online" />
-              <span>Jane Doe</span>
+              <span>Prince Verma</span>
             </div>
           </div>
           <div className="user">
