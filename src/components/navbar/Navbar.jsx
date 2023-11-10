@@ -43,7 +43,12 @@ const Navbar = () => {
             src={"/upload/" + currentUser.profilePic}
             alt=""
           />
-          <span>{currentUser.name}</span>
+          <Link
+            to={`/profile/${currentUser.id}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+              >
+            <span>{currentUser.name}</span>
+          </Link>
         </div>
       </div>
     </div>

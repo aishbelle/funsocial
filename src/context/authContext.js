@@ -16,12 +16,21 @@ export const AuthContextProvider = ({ children }) => {
     setCurrentUser(res.data)
   };
 
+  const logout = async () => {
+    try {
+      // Add any client-side logout logic here (clearing user data, updating state, etc.)
+      setCurrentUser(null);
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
+
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(currentUser));
   }, [currentUser]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, login }}>
+    <AuthContext.Provider value={{ currentUser, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

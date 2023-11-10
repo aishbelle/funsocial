@@ -1,6 +1,27 @@
 import "./rightBar.scss";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/authContext";
+import axios from "axios";
 
 const RightBar = () => {
+
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("https://funsocial-a5e2cfc4eaab.herokuapp.com/api/auth/logout", null, {
+        withCredentials: true,
+      });
+      logout();
+      navigate("/login");
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
+
+
   return (
     <div className="rightBar">
       <div className="container">
@@ -193,7 +214,7 @@ const RightBar = () => {
                 alt=""
               />
               <div className="online" />
-              <span>Jane Doe</span>
+              <button onClick={handleLogout}>Logout</button>
             </div>
           </div>
         </div>
