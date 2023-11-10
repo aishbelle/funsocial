@@ -28,7 +28,7 @@ const Update = ({ setOpenUpdate, user }) => {
   };
 
   const handleChange = (e) => {
-    setTexts((prev) => ({ ...prev, [e.target.name]: [e.target.value] }));
+    setTexts((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const queryClient = useQueryClient();
@@ -57,6 +57,8 @@ const Update = ({ setOpenUpdate, user }) => {
     setOpenUpdate(false);
     setCover(null);
     setProfile(null);
+
+  };
 
   return (
     <div className="update">
@@ -148,5 +150,5 @@ const Update = ({ setOpenUpdate, user }) => {
       </div>
     </div>
   );
-}};
+};
 export default Update;
