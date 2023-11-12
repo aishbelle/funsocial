@@ -20,7 +20,7 @@ const Update = ({ setOpenUpdate, user }) => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const res = await makeRequest.post("/api/upload", formData);
+      const res = await makeRequest.post("/upload", formData);
       return res.data;
     } catch (err) {
       console.log(err);
