@@ -23,7 +23,7 @@ const Update = ({ setOpenUpdate, user }) => {
       const res = await makeRequest.post("/upload", formData);
       return res.data;
     } catch (err) {
-      console.log(err);
+      console.log("error uploading file:",err);
     }
   };
 
@@ -35,7 +35,7 @@ const Update = ({ setOpenUpdate, user }) => {
 
   const mutation = useMutation({
     mutationFn: (user)=>{
-      return makeRequest.put("/users", user);
+      return makeRequest.put("/", user);
     },
     onSuccess: () => {
       // Invalidate and refetch
@@ -48,7 +48,7 @@ const Update = ({ setOpenUpdate, user }) => {
 
     //TODO: find a better way to get image URL
     
-    let coverUrl;
+    try{let coverUrl;
     let profileUrl;
     coverUrl = cover ? await upload(cover) : user.coverPic;
     profileUrl = profile ? await upload(profile) : user.profilePic;
@@ -57,7 +57,9 @@ const Update = ({ setOpenUpdate, user }) => {
     setOpenUpdate(false);
     setCover(null);
     setProfile(null);
-
+}catch(err){
+  console.log("error updating file:",err)
+}
   };
 
   return (
