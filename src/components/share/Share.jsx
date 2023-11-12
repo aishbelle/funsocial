@@ -14,10 +14,10 @@ const Share = () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const res = await makeRequest.post("/upload", formData);
+      const res = await makeRequest.post("/api/upload", formData);
       return res.data;
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
