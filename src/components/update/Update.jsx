@@ -3,6 +3,8 @@ import { makeRequest } from "../../axios";
 import "./update.scss";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import app from "../firebase";
 
 const Update = ({ setOpenUpdate, user }) => {
   const [cover, setCover] = useState(null);
@@ -20,8 +22,14 @@ const Update = ({ setOpenUpdate, user }) => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const res = await makeRequest.post("/upload", formData);
-      return res.data;
+      const storage = getStorage(app);
+      const fileName = new Date().getTime() + file.name;
+      const storageRef = ref(storage, fileName);
+      await uploadBytes(storageRef, file);
+
+  // Get download URL
+      const url = await getDownloadURL(storageRef);
+      return url;
     } catch (err) {
       console.log("error uploading file:",err);
     }
@@ -35,7 +43,7 @@ const Update = ({ setOpenUpdate, user }) => {
 
   const mutation = useMutation({
     mutationFn: (user)=>{
-      return makeRequest.put("/", user);
+      return makeRequest.put("/users", user);
     },
     onSuccess: () => {
       // Invalidate and refetch
@@ -48,7 +56,8 @@ const Update = ({ setOpenUpdate, user }) => {
 
     //TODO: find a better way to get image URL
     
-    try{let coverUrl;
+    try{
+    let coverUrl;
     let profileUrl;
     coverUrl = cover ? await upload(cover) : user.coverPic;
     profileUrl = profile ? await upload(profile) : user.profilePic;
@@ -75,7 +84,7 @@ const Update = ({ setOpenUpdate, user }) => {
                   src={
                     cover
                       ? URL.createObjectURL(cover)
-                      : "/upload/" + user.coverPic
+                      : user.coverPic
                   }
                   alt=""
                 />
@@ -95,7 +104,7 @@ const Update = ({ setOpenUpdate, user }) => {
                   src={
                     profile
                       ? URL.createObjectURL(profile)
-                      : "/upload/" + user.profilePic
+                      : user.profilePic
                   }
                   alt=""
                 />

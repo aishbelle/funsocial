@@ -6,20 +6,33 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import app from "../firebase";
 const Share = () => {
   const [file, setFile] = useState(null);
   const [desc, setDesc] = useState("");
 
-  const upload = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await makeRequest.post("/upload", formData);
-      return res.data;
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const upload = async (file) =>{
+    const storage = getStorage(app);
+    const fileName = new Date().getTime() + file.name;
+    const storageRef = ref(storage, fileName);
+
+    await uploadBytes(storageRef, file);
+
+  // Get download URL
+    const url = await getDownloadURL(storageRef);
+    return url;
+  }
+  // const upload = async (file) => {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("file", file);
+  //     const res = await makeRequest.post("/upload", formData);
+  //     return res.data;
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   const { currentUser } = useContext(AuthContext);
 
@@ -38,7 +51,7 @@ const Share = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     let imgUrl = "";
-    if (file) imgUrl = await upload();
+    if (file) imgUrl = await upload(file);
     mutation.mutate({ desc, img: imgUrl });
     setDesc("");
     setFile(null);
@@ -49,7 +62,7 @@ const Share = () => {
       <div className="container">
         <div className="top">
           <div className="left">
-            <img src={"/upload/" + currentUser.profilePic} alt="" />
+            <img src={currentUser.profilePic} alt="" />
             <input
               type="text"
               placeholder={`What's on your mind ${currentUser.name}?`}
