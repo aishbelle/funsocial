@@ -4,7 +4,7 @@ import "./update.scss";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import app from "../firebase";
+import app from "../../firebase";
 
 const Update = ({ setOpenUpdate, user }) => {
   const [cover, setCover] = useState(null);
