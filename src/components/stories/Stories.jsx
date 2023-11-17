@@ -3,7 +3,7 @@ import "./stories.scss";
 import { AuthContext } from "../../context/authContext";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
-import UpdateStories from "../../components/update/UpdateStories";
+import UpdateStories from "../../components/updateStories/UpdateStories";
 const Stories = () => {
   const { currentUser } = useContext(AuthContext);
   const [openUpdate, setOpenUpdate] = useState(false);
