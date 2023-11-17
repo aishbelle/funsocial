@@ -45,6 +45,16 @@
         display: none;
       }
     }
+    .del{
+      position: absolute;
+      top: 20px;
+      right: 0;
+      border: none;
+      background-color: #f0544f;
+      padding: 5px;
+      cursor:pointer;
+      color:white;
+    }
 
     button {
       position: absolute;

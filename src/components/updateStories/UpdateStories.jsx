@@ -48,10 +48,9 @@ const UpdateStories = ({ setOpenUpdate, user }) => {
             <label htmlFor="profile">
               <span>story image</span>
               <div className="imgContainer">
-                <img
-                  src={URL.createObjectURL(file)}
-                  alt=""
-                />
+              {file && (
+              <img className="file" alt="" src={URL.createObjectURL(file)} />
+            )}
                 <CloudUploadIcon className="icon" />
               </div>
             </label>

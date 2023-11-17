@@ -1,12 +1,14 @@
 import { useContext, useState } from "react";
 import "./stories.scss";
 import { AuthContext } from "../../context/authContext";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import UpdateStories from "../../components/updateStories/UpdateStories";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 const Stories = () => {
   const { currentUser } = useContext(AuthContext);
   const [openUpdate, setOpenUpdate] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["stories"],
@@ -14,6 +16,22 @@ const Stories = () => {
       return res.data;
     }),
   });
+
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: (storyId)=>{
+      return makeRequest.delete("/stories/"+ storyId)
+    },
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["stories"] });
+    },
+  });
+
+  const handleDelete = (storyId) => {
+    deleteMutation.mutate(storyId);
+  };
   //TODO Add story using react-query mutations and use upload function.
 
   return (
@@ -31,6 +49,10 @@ const Stories = () => {
         : data.map((story) => (
             <div className="story" key={story.id}>
               <img src={story.img} alt="" />
+              <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)} />
+          {menuOpen && story.userId === currentUser.id && (
+            <button className="del" onClick={() => handleDelete(story.id)}>delete</button>
+          )}
               <span>{story.name}</span>
             </div>
           ))}
