@@ -6,7 +6,7 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 300vh;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
@@ -48,13 +48,13 @@
         .files {
           display: flex;
           flex-wrap: wrap;
-          gap: 20px;
+          gap: 50px;
         }
 
         label {
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 30px;
           color: gray;
           font-size: 14px;
 
