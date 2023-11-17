@@ -23,16 +23,6 @@ const Share = () => {
     const url = await getDownloadURL(storageRef);
     return url;
   }
-  // const upload = async (file) => {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("file", file);
-  //     const res = await makeRequest.post("/upload", formData);
-  //     return res.data;
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
 
   const { currentUser } = useContext(AuthContext);
 
