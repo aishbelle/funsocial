@@ -29,6 +29,7 @@ const Update = ({ setOpenUpdate, user }) => {
 
   // Get download URL
       const url = await getDownloadURL(storageRef);
+      console.log(url);
       return url;
     } catch (err) {
       console.log("error uploading file:",err);
