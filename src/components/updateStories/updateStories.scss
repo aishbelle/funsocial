@@ -2,111 +2,106 @@
 
 .updateStories {
   @include themify($themes) {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
+    -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    border-radius: 20px;
+    background-color: themed("bg");
+    color: themed("textColor");
+    margin-bottom: 20px;
 
-    .wrapper {
-      margin: auto;
-      width: 80%;
-      max-height: 120%;
-      overflow-y: auto;
-      background-color: themed("bg");
+    .container {
       padding: 20px;
-      z-index: 999;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-      position: relative;
-
-      @include mobile {
-        width: 100%; // Adjusted width for mobile
-        height: 100%; // Adjusted height for mobile
-      }
-
-      h1 {
-        color: lightgrey;
-        font-size: 24px;
-        @include mobile {
-          font-size: 20px; // Adjusted font size for mobile
-        }
-      }
-
-      form {
+      .top {
         display: flex;
-        flex-direction: column;
-        gap: 20px;
+        align-items: center;
+        justify-content: space-between;
 
-        .files {
+        .left {
           display: flex;
-          flex-wrap: wrap;
-          gap: 20px;
+          align-items: center;
+          flex: 3;
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          input {
+            border: none;
+            outline: none;
+            padding: 20px 10px;
+            background-color: transparent;
+            width: 60%;
+            color: themed("textColor");
+          }
         }
-
-        label {
+        .right {
+          flex: 1;
           display: flex;
-          flex-direction: column;
-          gap: 10px;
-          color: gray;
-          font-size: 14px;
+          justify-content: flex-end;
+          .close{
+            position: absolute;
+            top: 15px;
+            right: 0;
+            border: none;
+            background-color: #f0544f;
+            padding: 5px;
+            cursor:pointer;
+            color:white;
+          }
+          .file {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 0px;
+          }
+        }
+      }
 
-          .imgContainer {
-            position: relative;
+      hr {
+        margin: 20px 0px;
+        border: none;
+        height: 0.5px;
+        background-color: themed("border");
+      }
+
+      .bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .left {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+
+          .item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
 
             img {
-              width: 100px;
-              height: 100px;
-              object-fit: cover;
+              height: 20px;
             }
 
-            .icon {
-              position: absolute;
-              top: 0;
-              bottom: 0;
-              left: 0;
-              right: 0;
-              margin: auto;
-              font-size: 30px;
-              color: lightgray;
-              cursor: pointer;
+            span {
+              font-size: 12px;
+              color: gray;
             }
           }
         }
-
-        input {
-          padding: 5px;
-          border: none;
-          border-bottom: 1px solid themed("border");
-          color: gray;
-          background-color: transparent;
+        .right {
+          button {
+            border: none;
+            padding: 5px;
+            color: white;
+            cursor: pointer;
+            background-color: #5271ff;
+            border-radius: 3px;
+          }
         }
-
-        button {
-          border: none;
-          padding: 10px;
-          cursor: pointer;
-          color: white;
-          background-color: #5271ff;
-        }
-      }
-
-      .close {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        border: none;
-        background-color: #f0544f;
-        padding: 5px;
-        cursor: pointer;
-        color: white;
       }
     }
   }

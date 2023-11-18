@@ -1,10 +1,12 @@
 import "./updateStories.scss";
+import Image from "../../assets/img.png";
+import Map from "../../assets/map.png";
+import Friend from "../../assets/friend.png";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import app from "../../firebase";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 const UpdateStories = ({ setOpenUpdate, user }) => {
   const [file, setFile] = useState(null);
 
@@ -36,36 +38,58 @@ const UpdateStories = ({ setOpenUpdate, user }) => {
     let imgUrl = "";
     if (file) imgUrl = await upload(file);
     mutation.mutate({ img: imgUrl });
+    setOpenUpdate(false);
     setFile(null);
   };
 
   return (
     <div className="updateStories">
-      <div className="wrapper">
-        <h1>Upload Story</h1>
-        <form>
-          <div className="files">
-            <label htmlFor="profile">
-              <span>story image</span>
-              <div className="imgContainer">
-              {file && (
+      <div className="container">
+        <div className="top">
+          <div className="left">
+            <img src={user.profilePic} alt="" />
+            <input
+              type="text"
+              placeholder={`What's on your mind ${user.name}?`}
+            />
+          </div>
+          <div className="right">
+            {file && (
               <img className="file" alt="" src={URL.createObjectURL(file)} />
             )}
-                <CloudUploadIcon className="icon" />
-              </div>
-            </label>
+            <button className="close" onClick={() => setOpenUpdate(false)}>
+          close
+        </button>
+          </div>
+        </div>
+        <hr />
+        <div className="bottom">
+          <div className="left">
             <input
               type="file"
               id="file"
               style={{ display: "none" }}
               onChange={(e) => setFile(e.target.files[0])}
             />
+            <label htmlFor="file">
+              <div className="item">
+                <img src={Image} alt="" />
+                <span>Add Image</span>
+              </div>
+            </label>
+            <div className="item">
+              <img src={Map} alt="" />
+              <span>Add Place</span>
+            </div>
+            <div className="item">
+              <img src={Friend} alt="" />
+              <span>Tag Friends</span>
+            </div>
           </div>
-          <button onClick={handleClick}>Upload</button>
-        </form>
-        <button className="close" onClick={() => setOpenUpdate(false)}>
-          close
-        </button>
+          <div className="right">
+            <button onClick={handleClick}>Upload</button>
+          </div>
+        </div>
       </div>
     </div>
   );
