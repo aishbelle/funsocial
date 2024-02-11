@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { makeRequest } from "../../axios";
-import "./update.scss";
+import "./updateStories.scss";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import app from "../../firebase";
 
-const Update = ({ setOpenUpdate, user }) => {
+const UpdateStories = ({ setOpenUpdate, user }) => {
   const [profile, setProfile] = useState(null);
 
   const upload = async (file) => {
@@ -58,7 +58,7 @@ const Update = ({ setOpenUpdate, user }) => {
   };
 
   return (
-    <div className="update">
+    <div className="updateStories">
       <div className="wrapper">
         <h1>Upload your Story</h1>
         <form>
@@ -98,4 +98,4 @@ const Update = ({ setOpenUpdate, user }) => {
     </div>
   );
 };
-export default Update;
+export default UpdateStories;
