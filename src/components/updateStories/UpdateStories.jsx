@@ -1,98 +1,101 @@
-import "./updateStories.scss";
-import Image from "../../assets/img.png";
-import Map from "../../assets/map.png";
-import Friend from "../../assets/friend.png";
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
+import "./update.scss";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import app from "../../firebase";
-const UpdateStories = ({ setOpenUpdate, user }) => {
-  const [file, setFile] = useState(null);
 
-  const upload = async (file) =>{
-    const storage = getStorage(app);
-    const fileName = new Date().getTime() + file.name;
-    const storageRef = ref(storage, fileName);
+const Update = ({ setOpenUpdate, user }) => {
+  const [profile, setProfile] = useState(null);
 
-    await uploadBytes(storageRef, file);
+  const upload = async (file) => {
+    //console.log(file)
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const storage = getStorage(app);
+      const fileName = new Date().getTime() + file.name;
+      const storageRef = ref(storage, fileName);
+      await uploadBytes(storageRef, file);
 
   // Get download URL
-    const url = await getDownloadURL(storageRef);
-    return url;
-  }
+      const url = await getDownloadURL(storageRef);
+      console.log(url);
+      return url;
+    } catch (err) {
+      console.log("error uploading file:",err);
+    }
+  };
+
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (story)=>{
-      return makeRequest.post("/stories", story);
+    mutationFn: (newStory)=>{
+      return makeRequest.post("/stories", newStory);
     },
     onSuccess: () => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["stories"] });
+      queryClient.invalidateQueries({ queryKey: ["story"] });
     },
   });
 
   const handleClick = async (e) => {
     e.preventDefault();
-    let imgUrl = "";
-    if (file) imgUrl = await upload(file);
-    mutation.mutate({ img: imgUrl });
+
+    //TODO: find a better way to get image URL
+    
+    try{
+    let profileUrl;
+    profileUrl = profile ? await upload(profile) : user.profilePic;
+    
+    mutation.mutate({ img: profileUrl });
     setOpenUpdate(false);
-    setFile(null);
+    setProfile(null);
+}catch(err){
+  console.log("error updating file:",err)
+}
   };
 
   return (
-    <div className="updateStories">
-      <div className="container">
-        <div className="top">
-          <div className="left">
-            <img src={user.profilePic} alt="" />
-            <input
-              type="text"
-              placeholder={`What's on your mind ${user.name}?`}
-            />
-          </div>
-          <div className="right">
-            {file && (
-              <img className="file" alt="" src={URL.createObjectURL(file)} />
-            )}
-            <button className="close" onClick={() => setOpenUpdate(false)}>
-          close
-        </button>
-          </div>
-        </div>
-        <hr />
-        <div className="bottom">
-          <div className="left">
-            <input
-              type="file"
-              id="file"
-              style={{ display: "none" }}
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-            <label htmlFor="file">
-              <div className="item">
-                <img src={Image} alt="" />
-                <span>Add Image</span>
+    <div className="update">
+      <div className="wrapper">
+        <h1>Upload your Story</h1>
+        <form>
+          <div className="files">
+            <label htmlFor="profile">
+              <span>What's new Today!?</span>
+              <div className="imgContainer">
+                <img
+                  src={
+                    profile
+                      ? URL.createObjectURL(profile)
+                      : user.profilePic
+                  }
+                  alt=""
+                />
+                <CloudUploadIcon className="icon" />
               </div>
             </label>
-            <div className="item">
-              <img src={Map} alt="" />
-              <span>Add Place</span>
-            </div>
-            <div className="item">
-              <img src={Friend} alt="" />
-              <span>Tag Friends</span>
-            </div>
+            <input
+              type="file"
+              id="profile"
+              style={{ display: "none" }}
+              onChange={(e) => setProfile(e.target.files[0])}
+            />
           </div>
-          <div className="right">
-            <button onClick={handleClick}>Upload</button>
-          </div>
-        </div>
+          <label>Name</label>
+          <input
+            type="text"
+            name="name"
+          />
+          <button onClick={handleClick}>Update</button>
+        </form>
+        <button className="close" onClick={() => setOpenUpdate(false)}>
+          close
+        </button>
       </div>
     </div>
   );
 };
-
-export default UpdateStories;
+export default Update;

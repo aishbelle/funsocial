@@ -1,107 +1,112 @@
 @import "../../style.scss";
 
-.updateStories {
+.update {
   @include themify($themes) {
-    -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    border-radius: 20px;
-    background-color: themed("bg");
-    color: themed("textColor");
-    margin-bottom: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
 
-    .container {
+    .wrapper {
+      margin: auto;
+      width: 80%;
+      max-height: 80%;
+      overflow-y: auto;
+      background-color: themed("bg");
       padding: 20px;
-      .top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+      position: relative;
 
-        .left {
-          display: flex;
-          align-items: center;
-          flex: 3;
-          img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-          }
+      @include mobile {
+        width: 100%; // Adjusted width for mobile
+        height: 100%; // Adjusted height for mobile
+      }
 
-          input {
-            border: none;
-            outline: none;
-            padding: 20px 10px;
-            background-color: transparent;
-            width: 60%;
-            color: themed("textColor");
-          }
-        }
-        .right {
-          flex: 1;
-          display: flex;
-          justify-content: flex-end;
-          .close{
-            position: absolute;
-            top: 15px;
-            right: 0;
-            border: none;
-            background-color: #f0544f;
-            padding: 5px;
-            cursor:pointer;
-            color:white;
-          }
-          .file {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 0px;
-          }
+      h1 {
+        color: lightgrey;
+        font-size: 24px;
+        @include mobile {
+          font-size: 20px; // Adjusted font size for mobile
         }
       }
 
-      hr {
-        margin: 20px 0px;
-        border: none;
-        height: 0.5px;
-        background-color: themed("border");
-      }
-
-      .bottom {
+      form {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .left {
+        flex-direction: column;
+        gap: 20px;
+
+        .files {
           display: flex;
-          align-items: center;
+          flex-wrap: wrap;
           gap: 20px;
+        }
 
-          .item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
+        label {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          color: gray;
+          font-size: 14px;
+
+          .imgContainer {
+            position: relative;
 
             img {
-              height: 20px;
+              width: 100px;
+              height: 100px;
+              object-fit: cover;
             }
 
-            span {
-              font-size: 12px;
-              color: gray;
+            .icon {
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin: auto;
+              font-size: 30px;
+              color: lightgray;
+              cursor: pointer;
             }
           }
         }
-        .right {
-          button {
-            border: none;
-            padding: 5px;
-            color: white;
-            cursor: pointer;
-            background-color: #5271ff;
-            border-radius: 3px;
-          }
+
+        input {
+          padding: 5px;
+          border: none;
+          border-bottom: 1px solid themed("border");
+          color: gray;
+          background-color: transparent;
         }
+
+        button {
+          border: none;
+          padding: 10px;
+          cursor: pointer;
+          color: white;
+          background-color: #5271ff;
+        }
+      }
+
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        border: none;
+        background-color: #f0544f;
+        padding: 5px;
+        cursor: pointer;
+        color: white;
       }
     }
   }

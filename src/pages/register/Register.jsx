@@ -18,7 +18,10 @@ const Register = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-
+    if(inputs.username === "" || inputs.password === ""){
+      setErr("Please enter valid details")
+      return;
+    }
     try {
       await axios.post("https://funsocial-a5e2cfc4eaab.herokuapp.com/api/auth/register", inputs);
     } catch (err) {
