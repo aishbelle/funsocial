@@ -10,12 +10,12 @@ const Stories = () => {
   const [openUpdate, setOpenUpdate] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["stories"],
-    queryFn: () => makeRequest.get("/stories").then((res)=>{
-      return res.data;
-    }),
-  });
+  // const { isLoading, error, data } = useQuery({
+  //   queryKey: ["stories"],
+  //   queryFn: () => makeRequest.get("/stories").then((res)=>{
+  //     return res.data;
+  //   }),
+  // });
 
   const queryClient = useQueryClient();
 
