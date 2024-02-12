@@ -42,7 +42,13 @@ const Stories = () => {
         <button onClick={() => setOpenUpdate(true)}>+</button>
         {openUpdate && <UpdateStories setOpenUpdate={setOpenUpdate} user={currentUser} />}
       </div>
-      {error
+    </div>
+    //placed above last div
+  );
+};
+
+export default Stories;
+/*{error
         ? "Something went wrong"
         : isLoading
         ? "loading"
@@ -55,9 +61,4 @@ const Stories = () => {
           )}
               <span>{story.name}</span>
             </div>
-          )): "No data"}
-    </div>
-  );
-};
-
-export default Stories;
+          )): "No data"}*/
