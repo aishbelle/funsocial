@@ -21,7 +21,7 @@ const UpdateStories = ({ setOpenUpdate, user }) => {
 
   // Get download URL
       const url = await getDownloadURL(storageRef);
-      console.log(url);
+      //console.log(url);
       return url;
     } catch (err) {
       console.log("error uploading file:",err);
@@ -63,6 +63,20 @@ const UpdateStories = ({ setOpenUpdate, user }) => {
         <h1>Upload your Story</h1>
         <form>
           <div className="files">
+          <label htmlFor="cover">
+              <span>suggestion</span>
+              <div className="imgContainer">
+                <img
+                  src="https://unsplash.com/photos/black-flat-screen-tv-turned-on-at-the-living-room-EP6_VZhzXM8"
+                  alt=""
+                />
+                <CloudUploadIcon className="icon" />
+              </div>
+            </label>
+            <input
+              type="file"
+              id="cover"
+              style={{ display: "none" }}            />
             <label htmlFor="profile">
               <span>What's new Today!?</span>
               <div className="imgContainer">
@@ -89,7 +103,12 @@ const UpdateStories = ({ setOpenUpdate, user }) => {
             type="text"
             name="name"
           />
-          <button onClick={handleClick}>Update</button>
+          <label>Country / City</label>
+          <input
+            type="text"
+            name="city"
+          />
+          <button onClick={handleClick}>Upload</button>
         </form>
         <button className="close" onClick={() => setOpenUpdate(false)}>
           close
